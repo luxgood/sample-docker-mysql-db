@@ -1,0 +1,24 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    container_name: mysql-db-container
+    image: mysql
+    command: 
+      - --default-authentication-plugin=mysql_native_password 
+      - --character-set-server=utf8mb4 
+      - --collation-server=utf8mb4_unicode_ci
+    volumes: 
+      - ./data-volume:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  adminer:
+    container_name: mysql-adminer-container
+    image: adminer
+    restart: always
+    ports:
+      - 8070:8080
